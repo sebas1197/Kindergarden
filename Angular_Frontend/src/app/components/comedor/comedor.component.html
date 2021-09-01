@@ -1,0 +1,103 @@
+<!-- FORMULARIO DE COMEDOR -->
+<div class="container pt-4 none" id="formulario">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h2>Comedor</h2>
+          <form
+            class="mt-4"
+            [formGroup]="formularioComedor"
+            (ngSubmit)="crearComedor()"
+          >
+            <div class="row">
+              <div class="col">
+                <br />
+                <input
+                  type="text"
+                  formControlName="nombreComida"
+                  id="nombreComida"
+                  (keypress)="soloLetras($event)"
+                  class="form-control"
+                  placeholder="Nombre de la comida"
+                />
+              </div>
+              <div class="col">
+                <h6>Niño</h6>
+                <select class="form-select" formControlName="apellidoMenor" id="apellidoMenor">
+                  <option
+                    *ngFor="let item of menores"
+                    [value]="item.apellido"
+                  >
+                    {{ item.nombre }} {{ item.apellido }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button
+                type="text"
+                class="btn btn-secondary btn-lg"
+                (click)="cerrarModal()"
+              >
+                Volver
+              </button>
+              <button
+                type="submit"
+                class="btn btn-dark btn-lg"
+                style="margin-left: 20px"
+                id="btn_modal"
+              >
+                Agregar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE COMEDORES -->
+<div class="container mt-4" id="form_comedor">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de comedores</span>
+      <button
+        class="btn btn-dark btn-lg float-right"
+        style="float: right"
+        (click)="abrirModal()"
+      >
+        Agregar
+      </button>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Código del comedor</th>
+            <th>Nombre de la comida</th>
+            <th>Niño</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of comedores">
+            <td>{{ item.id }}</td>
+            <td>{{ item.nombreComida }}</td>
+            <td>{{ item.apellidoMenor }}</td>
+            <td>
+              <i
+                class="far fa-edit fa-lg text-info mr-2"
+                (click)="editarComedor(item)"
+              ></i>
+              &nbsp;&nbsp;&nbsp;
+              <i
+                class="far fa-trash-alt fa-lg text-danger"
+                (click)="borrarComedor(item)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+i{
+    cursor: pointer;
+}
+
+html{
+    font-family: fantasy;
+}
+
+.none{
+    display: none;
+}
+
+body{
+    background: url("assets/background.jpg") no-repeat;
+	background-size: cover;
+    min-height: 50%;
+    overflow-x: hidden;
+}

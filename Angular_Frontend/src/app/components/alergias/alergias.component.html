@@ -1,0 +1,105 @@
+<!-- FORMULARIO DE ALERGIA -->
+<div class="container pt-4 none" id="formulario">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h2>Alergia</h2>
+          <form class="mt-4" [formGroup]="formularioAlergia">
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  id="nombre"
+                  class="form-control"
+                  (keypress)="soloLetras($event)"
+                  placeholder="Nombre de la alergia"
+                />
+              </div>
+            </div>
+            <textarea
+              class="form-control mt-3"
+              formControlName="detalle"
+              id="detalle"
+              style="width: 450px"
+              placeholder="Detalle de la alergia"
+              rows="5"
+            ></textarea>
+            <div class="mt-4">
+              <button
+                type="text"
+                class="btn btn-secondary btn-lg"
+                (click)="cerrarModal()"
+              >
+                Volver
+              </button>
+              <button
+                type="submit"
+                class="btn btn-dark btn-lg"
+                style="margin-left: 20px"
+                id="btn_agregar"
+                (click)="crearAlergia()"
+              >
+                Agregar
+              </button>
+              <button
+                type="text"
+                class="btn btn-dark btn-lg none"
+                style="margin-left: 20px"
+                id="btn_editar"
+                (click)="editar()"
+              >
+                Editar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE ALERGIAS -->
+<div class="container mt-4" id="form_alergia">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de alergias de los niños</span>
+      <button
+        class="btn btn-dark btn-lg float-right"
+        style="float: right"
+        (click)="abrirModal()"
+      >
+        Agregar
+      </button>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Detalle</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of alergias">
+            <td>{{item.id}}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.detalle }}</td>
+            <td>
+              <i
+                class="far fa-edit fa-lg text-info mr-2"
+                (click)="editarAlergia(item)"
+              ></i>
+              &nbsp;&nbsp;&nbsp;
+              <i
+                class="far fa-trash-alt fa-lg text-danger"
+                (click)="borrarAlergia(item)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

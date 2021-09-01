@@ -1,0 +1,249 @@
+<!-- FORMULARIO DE MENOR -->
+<div class="container pt-4 none" id="formulario">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h2>Niño</h2>
+          <form class="mt-4" [formGroup]="formularioMenor">
+            <div class="row">
+              <div class="col">
+                <h6>Tipo de Identificación</h6>
+                <select
+                  class="form-select"
+                  formControlName="tipoIdentificacion"
+                  id="tipoIdentificacion"
+                  style="margin-top: 10px"
+                >
+                  <option value="CED">Cédula</option>
+                  <option value="PAS">Pasaporte</option>
+                </select>
+              </div>
+              <div class="col">
+                <br />
+                <input
+                  type="text"
+                  formControlName="identificacion"
+                  id="identificacion"
+                  (keypress)="soloNumeros($event)"
+                  class="form-control"
+                  placeholder="Digite su Identificación"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  id="nombre"
+                  class="form-control"
+                  (keypress)="soloLetras($event)"
+                  placeholder="Ingrese su nombre"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="apellido"
+                  id="apellido"
+                  class="form-control"
+                  (keypress)="soloLetras($event)"
+                  placeholder="Ingrese su apellido"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <h6>Fecha de nacimiento</h6>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="fechaNacimiento"
+                  id="fechaNacimiento"
+                  title="Fecha de nacimiento"
+                />
+              </div>
+              <div class="col">
+                <h6>Género</h6>
+                <select
+                  class="form-select"
+                  formControlName="genero"
+                  id="genero"
+                  style="margin-top: 10px"
+                >
+                  <option value="MAS">Masculino</option>
+                  <option value="FEM">Femenino</option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <h6>Horario</h6>
+                <select
+                  class="form-select"
+                  formControlName="horarioJornada"
+                  id="horarioJornada"
+                >
+                  <option
+                    *ngFor="let item of horarios"
+                    [value]="item.jornada"
+                  >
+                    {{ item.jornada }}
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <h6>Alergias</h6>
+                <select
+                  class="form-select"
+                  formControlName="nombreAlergias"
+                  id="nombreAlergias"
+                >
+                  <option
+                    *ngFor="let item of Alergias"
+                    [value]="item.nombre"
+                  >
+                    {{ item.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <br />
+                <h6>Grupo</h6>
+                <select
+                  class="form-select"
+                  formControlName="nombreGrupoNivel"
+                  id="nombreGrupoNivel"
+                >
+                  <option
+                    *ngFor="let item of gruposNiveles"
+                    [value]="item.nombre"
+                  >
+                  {{item.nombre}}
+                  </option>
+                </select>
+                <div class="col">
+                  <h6>Representante</h6>
+                  <select
+                    class="form-select"
+                    formControlName="apellidoRepresentante"
+                    id="apellidoRepresentante"
+                    style="margin-top: 10px"
+                  >
+                    <option *ngFor="let item of representantes" [value] = "item.apellido">{{item.nombre}} {{item.apellido}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <br />
+            <textarea
+              formControlName="direccion"
+              id="direccion"
+              rows="5"
+              style="width: 450px"
+              placeholder="Ingrese la direccion de su domicilio"
+            ></textarea>
+            <div class="mt-4">
+              <button
+                type="text"
+                class="btn btn-secondary btn-lg"
+                (click)="cerrarModal()"
+              >
+                Volver
+              </button>
+              <button
+                type="submit"
+                class="btn btn-dark btn-lg"
+                style="margin-left: 20px"
+                id="btn_agregar"
+                (click)="crearMenor()"
+              >
+                Agregar
+              </button>
+              <button
+                type="text"
+                class="btn btn-dark btn-lg none"
+                style="margin-left: 20px"
+                id="btn_editar"
+                (click)="editar()"
+              >
+                Editar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE MENORES -->
+<div class="container mt-4" id="form_menor">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de niños</span>
+      <button
+        class="btn btn-dark btn-lg float-right"
+        style="float: right"
+        (click)="abrirModal()"
+      >
+        Agregar
+      </button>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Tipo de Identificación</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de nacimiento</th>
+            <th>Género</th>
+            <th>Dirección</th>
+            <th>Alergia</th>
+            <th>Grupo de nivel</th>
+            <th>Horario</th>
+            <th>Representante</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of menores">
+            <td *ngIf="item.tipoIdentificacion == 'CED'">Cédula</td>
+            <td *ngIf="item.tipoIdentificacion == 'PAS'">Pasaporte</td>
+            <td>{{ item.identificacion }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.fechaNacimiento }}</td>
+            <td *ngIf="item.genero == 'MAS'">Masculino</td>
+            <td *ngIf="item.genero == 'FEM'">Femenino</td>
+            <td>{{ item.direccion }}</td>
+            <td>{{ item.nombreAlergias }}</td>
+            <td>{{ item.nombreGrupoNivel }}</td>
+            <td *ngIf="item.horarioJornada == 'MAT'">Matutina</td>
+            <td *ngIf="item.horarioJornada == 'VES'">Vespertina</td>
+            <td>
+              {{ item.apellidoRepresentante }} 
+            </td>
+            <td>
+              <i
+                class="far fa-edit fa-lg text-info mr-2"
+                (click)="editarMenor(item)"
+              ></i>
+              &nbsp;&nbsp;&nbsp;
+              <i
+                class="far fa-trash-alt fa-lg text-danger"
+                (click)="borrarMenor(item)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

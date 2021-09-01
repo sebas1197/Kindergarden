@@ -1,0 +1,31 @@
+<!-- LISTA DE HORARIO -->
+<div class="container mt-4" id="form_horario">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de horarios</span>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Código de horario</th>
+            <th>Jornada</th>
+            <th>Hora de entrada</th>
+            <th>Hora de salida</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de finalización</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of horarios">
+            <td>{{ item.id }}</td>
+            <td *ngIf="item.jornada == 'MAT'">Matutina</td>
+            <td *ngIf="item.jornada == 'VES'">Vespertina</td>
+            <td>{{ item.hora_entrada }}</td>
+            <td>{{ item.hora_salida }}</td>
+            <td>{{ item.fecha_inicio }}</td>
+            <td>{{ item.fecha_final }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

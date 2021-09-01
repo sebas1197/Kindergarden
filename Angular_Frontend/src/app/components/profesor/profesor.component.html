@@ -1,0 +1,190 @@
+<!-- FORMULARIO DE PROFESOR -->
+<div class="container pt-4 none" id="formulario">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h2>Profesor</h2>
+          <form class="mt-4" [formGroup]="formularioProfesor">
+            <div class="row">
+              <div class="col">
+                <h6>Tipo de identificación</h6>
+                <select
+                  class="form-select"
+                  formControlName="tipoIdentificacion"
+                  title="Tipo de identificación"
+                  style="margin-top: 10px"
+                >
+                  <option value="CED">Cédula</option>
+                  <option value="PAS">Pasaporte</option>
+                </select>
+              </div>
+              <div class="col">
+                <br />
+                <input
+                  type="text"
+                  formControlName="identificacion"
+                  id="identificacion"
+                  (keypress)="soloNumeros($event)"
+                  class="form-control"
+                  placeholder="Digite su Identificación"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  id="nombre"
+                  (keypress)="soloLetras($event)"
+                  class="form-control"
+                  placeholder="Ingrese su nombre"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="apellido"
+                  id="apellido"
+                  (keypress)="soloLetras($event)"
+                  class="form-control"
+                  placeholder="Ingrese su apellido"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  formControlName="telefono"
+                  id="telefono"
+                  (keypress)="soloNumeros($event)"
+                  class="form-control"
+                  placeholder="Digite su teléfono"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="email"
+                  formControlName="correo"
+                  id="correo"
+                  class="form-control"
+                  placeholder="Ingrese su correo"
+                />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <h6>Género</h6>
+                <select
+                  class="form-select"
+                  formControlName="genero"
+                  title="Género"
+                >
+                  <option value="MAS">Masculino</option>
+                  <option value="FEM">Femenino</option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <textarea
+              class="form-control form-control-lg mt-3"
+              formControlName="direccion"
+              id="direccion"
+              placeholder="Ingrese la dirección de su domicilio"
+              style="width: 450px"
+              rows="5"
+            ></textarea>
+            <div class="mt-4">
+              <button
+                type="text"
+                class="btn btn-secondary btn-lg"
+                (click)="cerrarModal()"
+              >
+                Volver
+              </button>
+              <button
+                type="text"
+                class="btn btn-dark btn-lg"
+                style="margin-left: 20px"
+                id="btn_agregar"
+                (click)="crearProfesor()"
+              >
+                Agregar
+              </button>
+              <button
+                type="text"
+                class="btn btn-dark btn-lg none"
+                style="margin-left: 20px"
+                id="btn_editar"
+                (click)="editar()"
+              >
+                Editar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE PROFESOR -->
+<div class="container mt-4" id="form_profesor">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de profesores</span>
+      <button
+        class="btn btn-dark btn-lg float-right"
+        style="float: right"
+        (click)="abrirModal()"
+      >
+        Agregar
+      </button>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Tipo Identificación</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Dirección</th>
+            <th>Género</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of profesores">
+            <td *ngIf="item.tipoIdentificacion == 'CED'">Cédula</td>
+            <td *ngIf="item.tipoIdentificacion == 'PAS'">Pasaporte</td>
+            <td>{{ item.identificacion }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.apellido }}</td>
+            <td>{{ item.telefono }}</td>
+            <td>{{ item.correo }}</td>
+            <td>{{ item.direccion }}</td>
+            <td *ngIf="item.genero == 'MAS'">Masculino</td>
+            <td *ngIf="item.genero == 'FEM'">Femenino</td>
+            <td>
+              <i
+                class="far fa-edit fa-lg text-info mr-2"
+                (click)="editarProfesor(item)"
+              ></i>
+              &nbsp;&nbsp;&nbsp;
+              <i
+                class="far fa-trash-alt fa-lg text-danger"
+                (click)="borrarProfesor(item)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

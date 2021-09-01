@@ -1,0 +1,133 @@
+<!-- FORMULARIO DE PLANIFICACION -->
+<div class="container pt-4 none" id="formulario">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h2>Planificación</h2>
+          <form class="mt-4" [formGroup]="formularioPlanificacion">
+            <div class="row">
+              <div class="col">
+                <br />
+                <input
+                  type="text"
+                  formControlName="lugar"
+                  id="lugar"
+                  class="form-control form-control-lg"
+                  (keypress)="soloLetras($event)"
+                  placeholder="Ingrese el nombre del lugar"
+                />
+              </div>
+              <div class="col">
+                <h6>Profesor</h6>
+                <select
+                  class="form-select"
+                  formControlName="apellidoProfesor"
+                  id="apellidoProfesor"
+                >
+                  <option
+                    *ngFor="let item of profesores"
+                    [value]="item.apellido"
+                  >
+                    {{ item.nombre }} {{ item.apellido }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col">
+                <h6>Actividad</h6>
+                <select
+                  class="form-select"
+                  formControlName="nombreActividad"
+                  id="nombreActividad"
+                >
+                  <option
+                    *ngFor="let item of actividades"
+                    [value]="item.nombre"
+                  >
+                    {{ item.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button
+                type="text"
+                class="btn btn-secondary btn-lg"
+                (click)="cerrarModal()"
+              >
+                Volver
+              </button>
+              <button
+                type="submit"
+                class="btn btn-dark btn-lg"
+                style="margin-left: 20px"
+                id="btn_agregar"
+                (click)="crearPlanificacion()"
+              >
+                Agregar
+              </button>
+              <button
+                type="text"
+                class="btn btn-dark btn-lg none"
+                style="margin-left: 20px"
+                id="btn_editar"
+                (click)="editar()"
+              >
+                Editar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTA DE PLANIFICACIONES -->
+<div class="container mt-4" id="form_planificacion">
+  <div class="card">
+    <div class="card-body">
+      <span class="h3">Listado de planificaciones</span>
+      <button
+        class="btn btn-dark btn-lg float-right"
+        style="float: right"
+        (click)="abrirModal()"
+      >
+        Agregar
+      </button>
+      <table class="table mt-5 table-striped">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Lugar</th>
+            <th>Actividad</th>
+            <th>Profesor</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of planificaciones">
+            <td>{{ item.id }}</td>
+            <td>{{ item.lugar }}</td>
+            <td>{{ item.nombreActividad }}</td>
+            <td>{{ item.apellidoProfesor }}</td>
+            <td>
+              <i
+                class="far fa-edit fa-lg text-info mr-2"
+                (click)="editarPlanificacion(item)"
+              ></i>
+              &nbsp;&nbsp;&nbsp;
+              <i
+                class="far fa-trash-alt fa-lg text-danger"
+                (click)="borrarPlanificacion(item)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
